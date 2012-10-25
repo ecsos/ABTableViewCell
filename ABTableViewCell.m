@@ -71,7 +71,7 @@
 @implementation ABTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+    if((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
 		contentView = [[ABTableViewCellView alloc] initWithFrame:CGRectZero];
 		contentView.opaque = YES;
 		self.backgroundView = contentView;
