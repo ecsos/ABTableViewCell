@@ -46,7 +46,9 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-	[(ABTableViewCell *)[self superview] drawContentView:rect highlighted:NO];
+    UIView *v = self;
+    while (v && ![v isKindOfClass:[ABTableViewCell class]]) v = v.superview;
+	[(ABTableViewCell *)v drawContentView:rect highlighted:NO];
 }
 
 @end
@@ -62,7 +64,19 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-	[(ABTableViewCell *)[self superview] drawContentView:rect highlighted:YES];
+    UIView *v = self;
+    while (v && ![v isKindOfClass:[ABTableViewCell class]]) v = v.superview;
+	[(ABTableViewCell *)v drawContentView:rect highlighted:YES];
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+
+        // background color of selected soul
+        [[UIColor colorWithRed:60/255.0f green:60/255.0f blue:60/255.0f alpha:.3f] set];
+        CGRect myrectx = CGRectMake(5, 0, v.bounds.size.width - 10.0f, 40.0f);
+        
+        CGContextFillRect(ctx, myrectx);
+    
 }
 
 @end
@@ -74,10 +88,12 @@
     if((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
 		contentView = [[ABTableViewCellView alloc] initWithFrame:CGRectZero];
 		contentView.opaque = YES;
+        [contentView setBackgroundColor:[UIColor blackColor]];
 		self.backgroundView = contentView;
 
         selectedContentView = [[ABTableViewSelectedCellView alloc] initWithFrame:CGRectZero];
 		selectedContentView.opaque = YES;
+        [selectedContentView setBackgroundColor:[UIColor blackColor]];
 		self.selectedBackgroundView = selectedContentView;
 
     }
